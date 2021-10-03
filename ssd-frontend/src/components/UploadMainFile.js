@@ -92,7 +92,7 @@ console.log("here it is",this.state.tokValue[0].token)
               Click below button to upload a file from you computer
             </Card.Text>
             <div className="col-md-5 mb-3">
-              <label htmlFor="validationDefault04">Select Course Image</label>
+              <label htmlFor="validationDefault04">Select your file</label>
               <input
                 type="file"
                 name="file"

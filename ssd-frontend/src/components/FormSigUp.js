@@ -5,13 +5,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 function FormSigUp({}) {
   const [link, setLink] = useState();
- 
 
   useEffect(() => {
     axios({
       headers: {
-        //'Content-Type ': 'application/x-www-form-urlencoded;charset=UTF-8',
-        // 'Content-Type': 'application/json, text/plain, */*',
         "Content-Type": "application/json;charset=UTF-8",
       },
 
@@ -50,10 +47,7 @@ function FormSigUp({}) {
             type="text"
             name="username"
             placeholder="Enter your username"
-            // value={values.username}
-            // onChange={handleChange}
           />
-          {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-inputs">
           <label className="form-label">Email</label>
@@ -62,10 +56,7 @@ function FormSigUp({}) {
             type="email"
             name="email"
             placeholder="Enter your email"
-            // value={values.email}
-            // onChange={handleChange}
           />
-          {/* {errors.email && <p>{errors.email}</p>} */}
         </div>
         <div className="form-inputs">
           <label className="form-label">Password</label>
@@ -74,10 +65,7 @@ function FormSigUp({}) {
             type="password"
             name="password"
             placeholder="Enter your password"
-            // value={values.password}
-            // onChange={handleChange}
           />
-          {/* {errors.password && <p>{errors.password}</p>} */}
         </div>
         <div className="form-inputs">
           <label className="form-label">Confirm Password</label>
@@ -86,18 +74,12 @@ function FormSigUp({}) {
             type="password"
             name="password2"
             placeholder="Confirm your password"
-            // value={values.password2}
-            // onChange={handleChange}
           />
-          {/* {errors.password2 && <p>{errors.password2}</p>} */}
         </div>
         <button className="form-input-btn" type="submit">
           Sign up
         </button>
         <span className="form-input-login">OR Sign Up with</span>
-        {/* <button className="form-input-btn-google" type="submit" href={link}>
-          GOOGLE
-        </button> */}
         <div className="card-footer" style={{ width: 440, marginLeft: 80 }}>
           <a href={link}>
             <button type="button" className="form-input-btn-google">
