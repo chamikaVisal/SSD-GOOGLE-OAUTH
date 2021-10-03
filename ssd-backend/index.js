@@ -43,6 +43,45 @@ app.post('/getToken', (req, res) => {
     });
 });
 
+// get user info -ravindu
+app.post('/getUserInfo', (req, res) => {
+    if (req.body.token == null) return res.status(400).send('Token not found');
+    oAuth2Client.setCredentials(req.body.token);
+    const oauth2 = google.oauth2({ version: 'v2', auth: oAuth2Client });
+
+    oauth2.userinfo.get((err, response) => {
+        if (err) res.status(400).send(err);
+        console.log(response.data);
+        res.send(response.data);
+    })
+});
+
+
+//save token on DB - ravindu
+app.post('/createToken', (req, res) => {
+
+    const token = new Token({
+        token: req.body.token,
+     
+    })
+    token.save().then(tok => {
+        console.log("token Added")
+        try {
+            res.status(200).send({
+                message: 'token created successfully !',
+                data: tok
+            })
+
+        } catch (err) {
+            res.status(502).send({
+                message: 'OOPS ! server error',
+                error: err
+            })
+        }
+
+    })
+})  
+
 //HANSI
 //Read Drive
 app.post('/readDrive', (req, res) => {
@@ -70,6 +109,7 @@ app.post('/readDrive', (req, res) => {
 });
 
 // ------------------------------------------------------------------------------------------------
+
 
 //CHAMIKA
 //DB connection
