@@ -91,7 +91,7 @@ console.log("here it is",this.state.tokValue[0].token)
             <Card.Text>
               Click below button to upload a file from you computer
             </Card.Text>
-            <div className="col-md-5 mb-3">
+            <div className="col-md-5 mb-3" style={{marginLeft:610}}>
               <label htmlFor="validationDefault04">Select your file</label>
               <input
                 type="file"

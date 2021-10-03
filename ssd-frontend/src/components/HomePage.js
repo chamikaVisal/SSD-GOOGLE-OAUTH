@@ -1,3 +1,8 @@
+
+//chamika and ravindu and hansi
+//chamika-componentDidMount section
+//ravindu-fetchUserDetails/sentToken section
+//hansi-getFiles section
 import React, { Component } from "react";
 import upload from "../upload.png";
 import download from "../download.png";
@@ -6,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { Card, CardGroup, Col, Container, Navbar, Row } from "react-bootstrap";
 import NavBar from "./Navbar";
+import axios from "axios";
 import ReactModal from "react-modal";
 
 class HomePage extends Component {
@@ -16,15 +22,20 @@ class HomePage extends Component {
       name: "",
       id: "",
       picture: "",
+
       checkedfortoken: false,
-      isModalOpen: false,
+    
+      fileList: [],
     };
   }
-  // getToken api called when the page is loaded
   componentDidMount() {
+    // this.loadData();
     if (this.state.checkedfortoken === false) {
       let url = window.location.href;
+      // alert(url)
       let params = new URL(url).searchParams;
+      // alert(params.get("code"));
+
       let pkBody = JSON.stringify({
         code: params.get("code"),
       });
@@ -46,30 +57,6 @@ class HomePage extends Component {
       });
     }
   }
-
-  //Read Drive
-  getFiles = () => {
-    let assa = JSON.stringify({
-      token: this.state.tok,
-    });
-
-    axios({
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      url: "http://localhost:4000/readDrive",
-      data: assa,
-    }).then((ss) => {
-      console.log("data", ss.data);
-      this.setState({ fileList: ss.data });
-      console.log(this.state.fileList);
-    });
-
-    this.setState({ isModalOpen: true });
-  };
-
-  // get user details - ravindu
   fetchUserDetails = () => {
     let pkBody2 = JSON.stringify({
       token: this.state.tok,
@@ -94,8 +81,6 @@ class HomePage extends Component {
 
     this.sentToken();
   };
-
-  // set the token save db -ravindu
   sentToken = () => {
     const json = JSON.stringify(this.state.tok);
 
@@ -108,11 +93,32 @@ class HomePage extends Component {
       method: "POST",
       url: "http://localhost:4000/createToken",
       data: { token: json },
-    }).then((response) => {
-      console.log("token response", response.data);
+    }).then((ss) => {
+      console.log("meka balanna", ss.data);
     });
   };
 
+  getFiles = () => {
+
+    let assa = JSON.stringify({
+      token: this.state.tok,
+    });
+
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      url: "http://localhost:4000/readDrive",
+      data: assa,
+    }).then((ss) => {
+      console.log("meka balanna", ss.data);
+      this.setState({ fileList: ss.data });
+      console.log(this.state.fileList);
+    });
+
+    this.setState({ isModalOpen: true });
+  };
   render() {
     const username = this.state.name;
     const td = this.state.fileList;
@@ -131,7 +137,7 @@ class HomePage extends Component {
         </h5>
         <div
           style={{
-            marginLeft: 880,
+            marginLeft: 850,
           }}
         >
           <img
@@ -206,7 +212,7 @@ class HomePage extends Component {
                 onClick={() => this.getFiles()}
               >
                 IMPORT
-              </Button>
+              </Button> 
               {/* </Link> */}
             </Card.Body>
             <Card.Footer>
@@ -240,13 +246,13 @@ class HomePage extends Component {
             >
               <Row>
                 <Col lg={8}>
-                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
+                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
                     File Name : {l.name}
                   </Card.Body>
-                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
+                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
                     Mime Type : {l.mimeType}
                   </Card.Body>
-                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
+                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
                     Id : {l.id}
                   </Card.Body>
                 </Col>
