@@ -16,8 +16,62 @@ class HomePage extends Component {
       name: "",
       id: "",
       picture: "",
+      checkedfortoken: false,
+      isModalOpen: false,
     };
   }
+  componentDidMount() {
+    // this.loadData();
+    if (this.state.checkedfortoken === false) {
+      let url = window.location.href;
+      // alert(url)
+      let params = new URL(url).searchParams;
+      // alert(params.get("code"));
+
+      let pkBody = JSON.stringify({
+        code: params.get("code"),
+      });
+
+      axios({
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        method: "POST",
+        url: "http://localhost:4000/getToken",
+        data: pkBody,
+      }).then((response) => {
+        console.log(response.data);
+
+        this.setState({ tok: response.data });
+        this.setState({ checkedfortoken: !this.state.checkedfortoken });
+
+        this.fetchUserDetails();
+      });
+    }
+  }
+
+//Read Drive
+ getFiles = () => {
+
+    let assa = JSON.stringify({
+      token: this.state.tok,
+    });
+
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      url: "http://localhost:4000/readDrive",
+      data: assa,
+    }).then((ss) => {
+      console.log("data", ss.data);
+      this.setState({ fileList: ss.data });
+      console.log(this.state.fileList);
+    });
+
+    this.setState({ isModalOpen: true });
+  };
 
   // get user details - ravindu
   fetchUserDetails = () => {
@@ -64,6 +118,7 @@ class HomePage extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <NavBar />
@@ -151,6 +206,7 @@ class HomePage extends Component {
               <Button
                 variant="secondary"
                 style={{ marginTop: "20px" }}
+                onClick={() => this.getFiles()}
               >
                 IMPORT
               </Button>
