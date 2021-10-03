@@ -7,7 +7,7 @@ const { google } = require('googleapis');
 const fs = require("fs");
 const formidable = require('formidable');
 const credentials = require('./credentials.json');
-const Token = require('./models/token')
+const Token = require('./models/token.model')
 var mongoose = require('mongoose');
 
 const client_id = credentials.web.client_id;
