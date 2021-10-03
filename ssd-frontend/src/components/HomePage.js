@@ -12,8 +12,10 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       tok: "",
+      name: "",
+      id: "",
+      picture: "",
       checkedfortoken: false,
       isModalOpen: false,
     };
@@ -69,6 +71,50 @@ class HomePage extends Component {
     });
 
     this.setState({ isModalOpen: true });
+  };
+
+  // get user details - ravindu
+  fetchUserDetails = () => {
+    let pkBody2 = JSON.stringify({
+      token: this.state.tok,
+    });
+
+    console.log(pkBody2);
+
+    axios({
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      method: "POST",
+      url: "http://localhost:4000/getUserInfo",
+      data: pkBody2,
+    }).then((response) => {
+      console.log(response.data);
+      // this.setState({ tok: response.data });
+      this.setState({ name: response.data.name });
+      this.setState({ id: response.data.id });
+      this.setState({ picture: response.data.picture });
+    });
+
+    this.sentToken();
+  };
+
+  // set the token save db -ravindu
+  sentToken = () => {
+    const json = JSON.stringify(this.state.tok);
+
+    console.log("this is to be sent", json);
+
+    axios({
+      headers: {
+        "Content-Type": "*",
+      },
+      method: "POST",
+      url: "http://localhost:4000/createToken",
+      data: { token: json },
+    }).then((response) => {
+      console.log("token response", response.data);
+    });
   };
 
   render() {
