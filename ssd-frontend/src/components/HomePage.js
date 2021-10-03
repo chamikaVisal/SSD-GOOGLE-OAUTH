@@ -24,7 +24,7 @@ class HomePage extends Component {
       picture: "",
 
       checkedfortoken: false,
-    
+      isModalOpen:false,
       fileList: [],
     };
   }
