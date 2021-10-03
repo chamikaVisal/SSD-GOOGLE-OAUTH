@@ -155,6 +155,16 @@ app.get('/getTokenfromDB', (req, res) => {
 
 // ------------------------------------------------------------------------------------------------
 
+//HANSI
+//Delete a file
+app.post('/deleteFile/:id', (req, res) => {
+    if (req.body.token == null) return res.status(400).send('Token not found');
+    oAuth2Client.setCredentials(req.body.token);
+    const drive = google.drive({ version: 'v3', auth: oAuth2Client });
+    var fileId = req.params.id;
+    drive.files.delete({ 'fileId': fileId }).then((response) => { res.send(response.data) })
+});
+// ------------------------------------------------------------------------------------------------
 
 //CHAMIKA
 //DB connection
