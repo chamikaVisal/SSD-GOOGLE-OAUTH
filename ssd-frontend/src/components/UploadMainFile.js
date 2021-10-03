@@ -1,4 +1,3 @@
-//nishiki
 import React, { Component } from "react";
 import upload from "../upload.png";
 import { Button, Card } from "react-bootstrap";
@@ -23,15 +22,11 @@ class UploadMainFile extends Component {
       method: "GET",
       url: "http://localhost:4000/getTokenfromDB",
     }).then((response) => {
-      // console.log(response.data);
       let len = response.data.length - 1;
       this.setState({ tokValue: response.data});
     });
   }
   handleFile = (e) => {
-    // console.log(e.target.files, "$$$$");
-    // console.log(e.target.files[0], "$$$$");
-
     let file = e.target.files[0];
     this.setState({
       file: file,
