@@ -145,6 +145,14 @@ app.post('/fileUpload', (req, res) => {
     });
 });
 
+// Get a token from DB
+app.get('/getTokenfromDB', (req, res) => {
+    const tok = Token.find().then(tok => {
+        res.send(tok);
+    })
+    console.log(tok)
+})
+
 // ------------------------------------------------------------------------------------------------
 
 
