@@ -48,6 +48,29 @@ class HomePage extends Component {
     }
   }
 
+//Read Drive
+ getFiles = () => {
+
+    let assa = JSON.stringify({
+      token: this.state.tok,
+    });
+
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      url: "http://localhost:4000/readDrive",
+      data: assa,
+    }).then((ss) => {
+      console.log("data", ss.data);
+      this.setState({ fileList: ss.data });
+      console.log(this.state.fileList);
+    });
+
+    this.setState({ isModalOpen: true });
+  };
+
   render() {
     
     return (
@@ -137,6 +160,7 @@ class HomePage extends Component {
               <Button
                 variant="secondary"
                 style={{ marginTop: "20px" }}
+                onClick={() => this.getFiles()}
               >
                 IMPORT
               </Button>
