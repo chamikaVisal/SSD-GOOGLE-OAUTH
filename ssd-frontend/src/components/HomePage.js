@@ -12,10 +12,44 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      tok: "",
+      checkedfortoken: false,
+      isModalOpen: false,
     };
+  }
+  componentDidMount() {
+    // this.loadData();
+    if (this.state.checkedfortoken === false) {
+      let url = window.location.href;
+      // alert(url)
+      let params = new URL(url).searchParams;
+      // alert(params.get("code"));
+
+      let pkBody = JSON.stringify({
+        code: params.get("code"),
+      });
+
+      axios({
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        method: "POST",
+        url: "http://localhost:4000/getToken",
+        data: pkBody,
+      }).then((response) => {
+        console.log(response.data);
+
+        this.setState({ tok: response.data });
+        this.setState({ checkedfortoken: !this.state.checkedfortoken });
+
+        this.fetchUserDetails();
+      });
+    }
   }
 
   render() {
+    
     return (
       <div>
         <NavBar />
