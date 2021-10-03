@@ -20,14 +20,11 @@ class HomePage extends Component {
       isModalOpen: false,
     };
   }
+  // getToken api called when the page is loaded
   componentDidMount() {
-    // this.loadData();
     if (this.state.checkedfortoken === false) {
       let url = window.location.href;
-      // alert(url)
       let params = new URL(url).searchParams;
-      // alert(params.get("code"));
-
       let pkBody = JSON.stringify({
         code: params.get("code"),
       });
@@ -50,9 +47,8 @@ class HomePage extends Component {
     }
   }
 
-//Read Drive
- getFiles = () => {
-
+  //Read Drive
+  getFiles = () => {
     let assa = JSON.stringify({
       token: this.state.tok,
     });
@@ -118,19 +114,20 @@ class HomePage extends Component {
   };
 
   render() {
-    
+    const username = this.state.name;
+    const td = this.state.fileList;
     return (
       <div>
         <NavBar />
         <h2
           style={{ textAlign: "center", paddingTop: "30px", fontWeight: "500" }}
         >
-          Welcome user !
+          Welcome {username} !
         </h2>
         <h5
           style={{ textAlign: "center", paddingTop: "30px", fontWeight: "500" }}
         >
-          User ID : userid
+          User ID : {this.state.id}
         </h5>
         <div
           style={{
@@ -139,7 +136,7 @@ class HomePage extends Component {
         >
           <img
             style={{ height: 300, width: 300, borderRadius: 150 }}
-            src="./pic.png"
+            src={this.state.picture}
             alt="pic"
           />
         </div>
@@ -231,7 +228,7 @@ class HomePage extends Component {
             },
           }}
         >
-          
+          {td.map((l, i) => (
             <Card
               key={i}
               border="secondary"
@@ -243,13 +240,13 @@ class HomePage extends Component {
             >
               <Row>
                 <Col lg={8}>
-                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
+                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
                     File Name : {l.name}
                   </Card.Body>
-                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
+                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
                     Mime Type : {l.mimeType}
                   </Card.Body>
-                  <Card.Body style={{ paddingTop: "22px",fontWeight:'bold' }}>
+                  <Card.Body style={{ paddingTop: "22px", fontWeight: "bold" }}>
                     Id : {l.id}
                   </Card.Body>
                 </Col>
@@ -277,7 +274,7 @@ class HomePage extends Component {
                 </Col>
               </Row>
             </Card>
-          
+          ))}
 
           <button
             className="ui button right floated black"

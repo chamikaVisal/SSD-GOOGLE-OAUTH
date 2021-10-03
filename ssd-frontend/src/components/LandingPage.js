@@ -1,4 +1,3 @@
-//nishiki
 import logo from "../logo.png";
 import "../App.css";
 import Button from "react-bootstrap/Button";
@@ -17,7 +16,6 @@ function LandingPage() {
           backgroundPosition: 'bottom 50px right 10px'
         }}
       >
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <h1 style={{ paddingBottom: "20px" }}>Welcome to SSD-Assignment 02</h1>
         <p>Import and Export Files with Google Drive</p>
         {/* button */}

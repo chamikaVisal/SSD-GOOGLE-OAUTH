@@ -1,10 +1,7 @@
-//NISHIKI
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-// import SignIn from "./components/SignIn";
 import Form from "./components/Form";
 import HomePage from "./components/HomePage";
 import UploadMainFile from "./components/UploadMainFile";
@@ -27,4 +24,3 @@ function App() {
 }
 
 export default App;
-//------------------------------------------------------------------
