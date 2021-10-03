@@ -56,6 +56,32 @@ app.post('/getUserInfo', (req, res) => {
     })
 });
 
+
+//save token on DB - ravindu
+app.post('/createToken', (req, res) => {
+
+    const token = new Token({
+        token: req.body.token,
+     
+    })
+    token.save().then(tok => {
+        console.log("token Added")
+        try {
+            res.status(200).send({
+                message: 'token created successfully !',
+                data: tok
+            })
+
+        } catch (err) {
+            res.status(502).send({
+                message: 'OOPS ! server error',
+                error: err
+            })
+        }
+
+    })
+})  
+
 //CHAMIKA
 //DB connection
 
